@@ -10,6 +10,11 @@
 
 - name: Output demo info
   agnosticd_user_info:
+    data:
+      openshift_username: "{{ ocp_username }}"
+      openshift_password: "{{ ocp4_workload_quarkus_super_heroes_demo_ocp_password }}"
+      openshift_api_url: "{{ master_url }}"
+      openshift_console_url: "{{ console_url }}"
     msg: |+
       [%hardbreaks]
       OpenShift credentials: {{ ocp_username }} / {{ ocp4_workload_quarkus_super_heroes_demo_ocp_password }}
@@ -24,6 +29,15 @@
   vars:
     t_project_name: "{{ ocp4_workload_quarkus_super_heroes_demo_project_name }}-{{ item[0] }}-{{ item[1] }}"
   agnosticd_user_info:
+    data:
+      "{{ t_project_name }}_console_url": "{{ console_url }}/topology/ns/{{ t_project_name }}"
+      "{{ t_project_name }}_super_heroes_ui_url": "http://ui-super-heroes-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_event_stats_ui_url": "http://event-statistics-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_heroes_ui_url": "http://rest-heroes-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_villains_ui_url": "http://rest-villains-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_apicurio_ui_url": "http://apicurio-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_prometheus_ui_url": "http://prometheus-operated-{{ t_project_name }}.{{ route_subdomain }}"
+      "{{ t_project_name }}_jaeger_ui_url": "https://jaeger-{{ t_project_name }}.{{ route_subdomain }}"
     msg: |+
       [%hardbreaks]
       * {{ t_project_name }} ({{ console_url }}/topology/ns/{{ t_project_name }})
